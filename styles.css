@@ -1,0 +1,29 @@
+
+/* Game container styles */
+#game-container {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  border: 5px solid #00ff00;
+  background: black;
+  overflow: hidden;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  #game-container {
+    width: 100%; /* Full width on mobile */
+    height: 70vh; /* 70% of the screen height */
+    border-width: 3px; /* Thinner border */
+  }
+
+  #player {
+    width: 24px; /* Smaller player size */
+    height: 24px;
+  }
+
+  .danger {
+    width: 15px; /* Smaller danger balls */
+    height: 15px;
+  }
+}
