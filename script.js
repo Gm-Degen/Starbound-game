@@ -11,14 +11,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Generate procedural world
   function generateProceduralWorld() {
+    // Clear previous content
     gameContainer.innerHTML = '';
     gameContainer.appendChild(player);
+
+    // Add stars
     for (let i = 0; i < 100; i++) {
       const star = document.createElement('div');
       star.className = 'star';
       star.style.left = `${Math.random() * 800}px`;
       star.style.top = `${Math.random() * 600}px`;
       gameContainer.appendChild(star);
+    }
+
+    // Add red balls (danger)
+    for (let i = 0; i < 5; i++) {
+      const danger = document.createElement('div');
+      danger.className = 'danger';
+      danger.style.left = `${Math.random() * 800}px`;
+      danger.style.top = `${Math.random() * 600}px`;
+      gameContainer.appendChild(danger);
     }
   }
 
@@ -27,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     health = Math.max(0, health + amount);
     healthBarFill.style.width = `${health}%`;
     if (health === 0) {
-      alert('Game Over!');
+      alert('Game Over! Restarting world...');
       health = 100;
       generateProceduralWorld();
     }
