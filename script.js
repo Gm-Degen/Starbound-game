@@ -97,7 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
     player.style.position = 'absolute';
     player.style.width = '64px';
     player.style.height = '64px';
-    player.style.backgroundColor = 'blue'; // Placeholder for character sprite
+    player.style.backgroundImage = "url('astronaut.png')"; // Use character sprite
+    player.style.backgroundSize = 'contain';
+    player.style.backgroundRepeat = 'no-repeat';
     player.style.left = `${playerX}px`;
     player.style.top = `${playerY}px`;
   }
