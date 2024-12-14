@@ -57,13 +57,15 @@ document.addEventListener("DOMContentLoaded", () => {
     gameOverScreen.style.width = '100%';
     gameOverScreen.style.height = '100%';
     gameOverScreen.style.background = "url('game-over.png') no-repeat center center";
-    gameOverScreen.style.backgroundSize = 'cover';
+    gameOverScreen.style.backgroundSize = 'contain'; // Resized to fit better
+    gameOverScreen.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'; // Add a slight overlay
     gameOverScreen.style.zIndex = '1000';
     document.body.appendChild(gameOverScreen);
 
     setTimeout(() => {
       gameOverScreen.remove();
       health = 100; // Reset health
+      healthBarFill.style.width = '100%'; // Reset the health bar
       generateProceduralWorld(); // Generate a new map
     }, 3000); // Display Game Over screen for 3 seconds
   }
