@@ -8,13 +8,24 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="game-container">
+  <!-- Start Menu -->
+  <div id="start-menu">
+    <img src="logo.png" alt="Game Logo" id="menu-logo">
+    <h1 id="game-title">Starbound</h1>
+    <p id="game-subtitle">Retrouve les cinq artefacts Zerebro</p>
+    <button id="start-button">START</button>
+  </div>
+
+  <!-- Game Container -->
+  <div id="game-container" style="display: none;">
     <div id="player"></div>
   </div>
-  <div class="health-bar">
+
+  <div class="health-bar" style="display: none;">
     <div class="health-bar-fill"></div>
   </div>
-  <div id="controls">
+
+  <div id="controls" style="display: none;">
     <button id="up">▲</button>
     <div>
       <button id="left">◀</button>
@@ -22,6 +33,7 @@
       <button id="right">▶</button>
     </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
