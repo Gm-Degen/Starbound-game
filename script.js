@@ -87,6 +87,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Check collision with dangers
+  function checkCollisions() {
+    const dangers = document.querySelectorAll('.danger');
+    dangers.forEach((danger) => {
+      const dangerRect = danger.getBoundingClientRect();
+      const playerRect = player.getBoundingClientRect();
+
+      if (
+        playerRect.left < dangerRect.right &&
+        playerRect.right > dangerRect.left &&
+        playerRect.top < dangerRect.bottom &&
+        playerRect.bottom > dangerRect.top
+      ) {
+        updateHealth(-10); // Decrease health by 10
+        danger.remove(); // Remove the danger after collision
+      }
+    });
+  }
+
   // Update player position
   function updatePlayerPosition() {
     if (playerX < 0) playerX = 0;
@@ -97,9 +116,13 @@ document.addEventListener("DOMContentLoaded", () => {
     player.style.position = 'absolute';
     player.style.width = '64px';
     player.style.height = '64px';
-    player.style.backgroundColor = 'blue'; // Placeholder for character sprite
+    player.style.backgroundImage = "url('astronaut.png')"; // Use character sprite
+    player.style.backgroundSize = 'contain';
+    player.style.backgroundRepeat = 'no-repeat';
     player.style.left = `${playerX}px`;
     player.style.top = `${playerY}px`;
+
+    checkCollisions(); // Check for collisions after updating position
   }
 
   // Movement functions
