@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let health = 100;
   let playerX, playerY;
-  let moveSpeed = 15; // Further increased movement speed
+  let moveSpeed = 30; // Doubled the movement speed again
 
   // Update container size dynamically based on the window size
   let gameWidth, gameHeight;
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     centerPlayer();
   }
 
-  // Update health
+  // Update health and check for Game Over
   function updateHealth(amount) {
     health = Math.max(0, health + amount);
     healthBarFill.style.width = `${health}%`;
@@ -56,6 +56,24 @@ document.addEventListener("DOMContentLoaded", () => {
       health = 100;
       generateProceduralWorld();
     }
+  }
+
+  // Check collisions with dangers
+  function checkCollisions() {
+    const dangers = document.querySelectorAll('.danger');
+    dangers.forEach((danger) => {
+      const rect1 = player.getBoundingClientRect();
+      const rect2 = danger.getBoundingClientRect();
+      if (
+        rect1.x < rect2.x + rect2.width &&
+        rect1.x + rect1.width > rect2.x &&
+        rect1.y < rect2.y + rect2.height &&
+        rect1.y + rect1.height > rect2.y
+      ) {
+        danger.remove(); // Remove the danger after collision
+        updateHealth(-10); // Lose 10 points of health
+      }
+    });
   }
 
   // Update player position
@@ -77,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     player.style.left = `${playerX}px`;
     player.style.top = `${playerY}px`;
+    checkCollisions(); // Check for collisions after updating position
   }
 
   // Movement functions
