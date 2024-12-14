@@ -5,19 +5,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const healthBarFill = document.querySelector('.health-bar-fill');
 
   let health = 100;
-  let playerX = 400;
-  let playerY = 300;
+  let playerX, playerY;
   let moveSpeed = 15; // Further increased movement speed
 
   // Update container size dynamically based on the window size
-  let gameWidth = window.innerWidth;
-  let gameHeight = window.innerHeight * 0.7; // 70% of screen height for the game
-  
+  let gameWidth, gameHeight;
+
   function resizeGameContainer() {
     gameWidth = window.innerWidth;
-    gameHeight = window.innerHeight * 0.7;
+    gameHeight = window.innerHeight * 0.7; // 70% of screen height for the game
     gameContainer.style.width = `${gameWidth}px`;
     gameContainer.style.height = `${gameHeight}px`;
+  }
+
+  // Center player on the screen
+  function centerPlayer() {
+    playerX = Math.floor(gameWidth / 2 - 32); // Center horizontally (32px is half the player's width)
+    playerY = Math.floor(gameHeight / 2 - 32); // Center vertically (32px is half the player's height)
+    updatePlayerPosition();
   }
 
   // Generate procedural world
@@ -39,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       danger.style.top = `${Math.random() * gameHeight}px`;
       gameContainer.appendChild(danger);
     }
+    centerPlayer();
   }
 
   // Update health
@@ -109,10 +115,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('right').addEventListener('click', moveRight);
 
   // Adjust game container size on window resize
-  window.addEventListener('resize', resizeGameContainer);
+  window.addEventListener('resize', () => {
+    resizeGameContainer();
+    generateProceduralWorld();
+  });
 
   // Initialize game
   resizeGameContainer();
   generateProceduralWorld();
-  updatePlayerPosition();
 });
