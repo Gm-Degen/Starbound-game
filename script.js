@@ -33,29 +33,25 @@ document.addEventListener("DOMContentLoaded", () => {
   let gameWidth, gameHeight;
 
   function resizeGameContainer() {
-    gameWidth = gameContainer.offsetWidth;
-    gameHeight = gameContainer.offsetHeight;
+    gameWidth = window.innerWidth;
+    gameHeight = window.innerHeight * 0.7;
+    gameContainer.style.width = `${gameWidth}px`;
+    gameContainer.style.height = `${gameHeight}px`;
   }
 
   // Center player on the screen
   function centerPlayer() {
-    playerX = Math.floor(gameWidth / 2 - 32); // Adjust for character size
+    playerX = Math.floor(gameWidth / 2 - 32);
     playerY = Math.floor(gameHeight / 2 - 32);
-    updatePlayerPosition();
   }
 
   // Generate procedural world
   function generateProceduralWorld() {
-    gameContainer.innerHTML = ''; // Clear previous elements
-    gameContainer.appendChild(player); // Add the player
-
-    for (let i = 0; i < 50; i++) {
+    gameContainer.innerHTML = '';
+    gameContainer.appendChild(player);
+    for (let i = 0; i < 100; i++) {
       const star = document.createElement('div');
       star.className = 'star';
-      star.style.position = 'absolute';
-      star.style.width = '4px';
-      star.style.height = '4px';
-      star.style.backgroundColor = 'white';
       star.style.left = `${Math.random() * gameWidth}px`;
       star.style.top = `${Math.random() * gameHeight}px`;
       gameContainer.appendChild(star);
@@ -64,11 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < 5; i++) {
       const danger = document.createElement('div');
       danger.className = 'danger';
-      danger.style.position = 'absolute';
-      danger.style.width = '20px';
-      danger.style.height = '20px';
-      danger.style.backgroundColor = 'red';
-      danger.style.borderRadius = '50%';
       danger.style.left = `${Math.random() * gameWidth}px`;
       danger.style.top = `${Math.random() * gameHeight}px`;
       gameContainer.appendChild(danger);
@@ -89,15 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Update player position
   function updatePlayerPosition() {
-    if (playerX < 0) playerX = 0;
-    if (playerX > gameWidth - 64) playerX = gameWidth - 64;
-    if (playerY < 0) playerY = 0;
-    if (playerY > gameHeight - 64) playerY = gameHeight - 64;
+    if (playerX < 0) playerX = gameWidth - 64;
+    if (playerX > gameWidth - 64) playerX = 0;
+    if (playerY < 0) playerY = gameHeight - 64;
+    if (playerY > gameHeight - 64) playerY = 0;
 
-    player.style.position = 'absolute';
-    player.style.width = '64px';
-    player.style.height = '64px';
-    player.style.backgroundColor = 'blue'; // Placeholder for character sprite
     player.style.left = `${playerX}px`;
     player.style.top = `${playerY}px`;
   }
