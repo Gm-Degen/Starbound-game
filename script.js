@@ -7,15 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let health = 100;
   let playerX = 400;
   let playerY = 300;
-  const moveSpeed = 5;
+  const moveSpeed = 10; // Increased movement speed
 
   // Generate procedural world
   function generateProceduralWorld() {
-    // Clear previous content
     gameContainer.innerHTML = '';
     gameContainer.appendChild(player);
-
-    // Add stars
     for (let i = 0; i < 100; i++) {
       const star = document.createElement('div');
       star.className = 'star';
@@ -24,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
       gameContainer.appendChild(star);
     }
 
-    // Add red balls (danger)
     for (let i = 0; i < 5; i++) {
       const danger = document.createElement('div');
       danger.className = 'danger';
@@ -47,28 +43,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Update player position
   function updatePlayerPosition() {
+    // Ensure the player stays within boundaries
+    playerX = Math.max(0, Math.min(playerX, 800 - 64)); // 64 is the player's width
+    playerY = Math.max(0, Math.min(playerY, 600 - 64)); // 64 is the player's height
     player.style.left = `${playerX}px`;
     player.style.top = `${playerY}px`;
   }
 
   // Movement functions
   function moveUp() {
-    if (playerY > 0) playerY -= moveSpeed;
+    playerY -= moveSpeed;
     updatePlayerPosition();
   }
 
   function moveDown() {
-    if (playerY < 600 - 64) playerY += moveSpeed;
+    playerY += moveSpeed;
     updatePlayerPosition();
   }
 
   function moveLeft() {
-    if (playerX > 0) playerX -= moveSpeed;
+    playerX -= moveSpeed;
     updatePlayerPosition();
   }
 
   function moveRight() {
-    if (playerX < 800 - 64) playerX += moveSpeed;
+    playerX += moveSpeed;
     updatePlayerPosition();
   }
 
