@@ -106,12 +106,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Update player position
+  // Update player position and check for edge transitions
   function updatePlayerPosition() {
-    if (playerX < 0) playerX = 0;
-    if (playerX > gameWidth - 64) playerX = gameWidth - 64;
-    if (playerY < 0) playerY = 0;
-    if (playerY > gameHeight - 64) playerY = gameHeight - 64;
+    if (playerX < 0) {
+      playerX = gameWidth - 64;
+      generateProceduralWorld(); // Switch to a new map
+    }
+    if (playerX > gameWidth - 64) {
+      playerX = 0;
+      generateProceduralWorld(); // Switch to a new map
+    }
+    if (playerY < 0) {
+      playerY = gameHeight - 64;
+      generateProceduralWorld(); // Switch to a new map
+    }
+    if (playerY > gameHeight - 64) {
+      playerY = 0;
+      generateProceduralWorld(); // Switch to a new map
+    }
 
     player.style.position = 'absolute';
     player.style.width = '64px';
