@@ -6,9 +6,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   background: black;
   color: white;
   font-family: 'Press Start 2P', cursive;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* Start menu styles */
@@ -18,14 +21,19 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: black;
 }
 
 /* Game container styles */
 #game-container {
   position: relative;
-  width: 80%;
-  height: 60%;
+  width: 90%; /* Responsive width */
+  height: 60%; /* Responsive height */
   border: 5px solid #00ff00;
   background: black;
   overflow: hidden;
@@ -33,14 +41,13 @@ body {
 
 /* Health bar */
 .health-bar {
-  position: relative;
-  width: 80%;
+  width: 90%; /* Same as the game container width */
   height: 20px;
   background: #333;
   border: 2px solid white;
   border-radius: 10px;
   overflow: hidden;
-  margin: 10px 0;
+  margin-top: 10px;
 }
 
 .health-bar-fill {
@@ -55,22 +62,29 @@ body {
   flex-direction: column;
   align-items: center;
   margin-top: 10px;
+  gap: 5px;
 }
 
 #controls button {
-  width: 40px;
-  height: 40px;
-  margin: 5px;
+  width: 50px;
+  height: 50px;
   background: white;
   border: 2px solid #333;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: bold;
   text-align: center;
+  cursor: pointer;
 }
 
 #controls div {
   display: flex;
   justify-content: center;
   gap: 10px;
+}
+
+/* Ensure full height scaling */
+html, body {
+  height: 100%;
+  overflow: hidden;
 }
