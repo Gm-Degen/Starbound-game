@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let playerX = 400;
   let playerY = 300;
   const moveSpeed = 10; // Increased movement speed
+  const playerSize = 64;
 
   // Generate procedural world
   function generateProceduralWorld() {
@@ -43,9 +44,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Update player position
   function updatePlayerPosition() {
-    // Ensure the player stays within boundaries
-    playerX = Math.max(0, Math.min(playerX, 800 - 64)); // 64 is the player's width
-    playerY = Math.max(0, Math.min(playerY, 600 - 64)); // 64 is the player's height
+    if (playerX < 0) {
+      playerX = 800 - playerSize;
+      generateProceduralWorld();
+    } else if (playerX > 800 - playerSize) {
+      playerX = 0;
+      generateProceduralWorld();
+    } else if (playerY < 0) {
+      playerY = 600 - playerSize;
+      generateProceduralWorld();
+    } else if (playerY > 600 - playerSize) {
+      playerY = 0;
+      generateProceduralWorld();
+    }
+
     player.style.left = `${playerX}px`;
     player.style.top = `${playerY}px`;
   }
