@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let playerX, playerY;
   let moveSpeed = 30;
 
-  // Start game
+  // Start the game and initialize everything
   startButton.addEventListener('click', () => {
     startMenu.style.display = 'none';
     gameContainer.style.display = 'block';
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     gameContainer.style.height = `${gameHeight}px`;
   }
 
-  // Center player
+  // Center player on the screen
   function centerPlayer() {
     playerX = Math.floor(gameWidth / 2 - 32);
     playerY = Math.floor(gameHeight / 2 - 32);
