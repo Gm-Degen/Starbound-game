@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     startMenu.style.display = 'none';
     gameContainer.style.display = 'block';
     healthBar.style.display = 'block';
-    controls.style.display = 'flex';
+    controls.style.display = 'block';
     initializeGame();
   });
 
