@@ -7,8 +7,18 @@ document.addEventListener("DOMContentLoaded", () => {
   let health = 100;
   let playerX = 400;
   let playerY = 300;
-  const moveSpeed = 10; // Increased movement speed
-  const playerSize = 64;
+  let moveSpeed = 15; // Further increased movement speed
+
+  // Update container size dynamically based on the window size
+  let gameWidth = window.innerWidth;
+  let gameHeight = window.innerHeight * 0.7; // 70% of screen height for the game
+  
+  function resizeGameContainer() {
+    gameWidth = window.innerWidth;
+    gameHeight = window.innerHeight * 0.7;
+    gameContainer.style.width = `${gameWidth}px`;
+    gameContainer.style.height = `${gameHeight}px`;
+  }
 
   // Generate procedural world
   function generateProceduralWorld() {
@@ -17,16 +27,16 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < 100; i++) {
       const star = document.createElement('div');
       star.className = 'star';
-      star.style.left = `${Math.random() * 800}px`;
-      star.style.top = `${Math.random() * 600}px`;
+      star.style.left = `${Math.random() * gameWidth}px`;
+      star.style.top = `${Math.random() * gameHeight}px`;
       gameContainer.appendChild(star);
     }
 
     for (let i = 0; i < 5; i++) {
       const danger = document.createElement('div');
       danger.className = 'danger';
-      danger.style.left = `${Math.random() * 800}px`;
-      danger.style.top = `${Math.random() * 600}px`;
+      danger.style.left = `${Math.random() * gameWidth}px`;
+      danger.style.top = `${Math.random() * gameHeight}px`;
       gameContainer.appendChild(danger);
     }
   }
@@ -44,16 +54,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Update player position
   function updatePlayerPosition() {
+    // Ensure the player stays within boundaries and triggers map transitions
     if (playerX < 0) {
-      playerX = 800 - playerSize;
+      playerX = gameWidth - 64;
       generateProceduralWorld();
-    } else if (playerX > 800 - playerSize) {
+    } else if (playerX > gameWidth - 64) {
       playerX = 0;
       generateProceduralWorld();
     } else if (playerY < 0) {
-      playerY = 600 - playerSize;
+      playerY = gameHeight - 64;
       generateProceduralWorld();
-    } else if (playerY > 600 - playerSize) {
+    } else if (playerY > gameHeight - 64) {
       playerY = 0;
       generateProceduralWorld();
     }
@@ -97,7 +108,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('left').addEventListener('click', moveLeft);
   document.getElementById('right').addEventListener('click', moveRight);
 
+  // Adjust game container size on window resize
+  window.addEventListener('resize', resizeGameContainer);
+
   // Initialize game
+  resizeGameContainer();
   generateProceduralWorld();
   updatePlayerPosition();
 });
