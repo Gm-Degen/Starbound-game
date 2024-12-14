@@ -12,15 +12,22 @@ document.addEventListener("DOMContentLoaded", () => {
   let playerX, playerY;
   let moveSpeed = 30;
 
-  // Start the game and initialize everything
+  // Start the game
   startButton.addEventListener('click', () => {
     startMenu.style.display = 'none';
     gameContainer.style.display = 'block';
     healthBar.style.display = 'block';
     controls.style.display = 'block';
+    initializeGame();
+  });
+
+  // Initialize the game components
+  function initializeGame() {
     resizeGameContainer();
     generateProceduralWorld();
-  });
+    centerPlayer();
+    updatePlayerPosition();
+  }
 
   // Update container size dynamically
   let gameWidth, gameHeight;
@@ -36,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function centerPlayer() {
     playerX = Math.floor(gameWidth / 2 - 32);
     playerY = Math.floor(gameHeight / 2 - 32);
-    updatePlayerPosition();
   }
 
   // Generate procedural world
@@ -58,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
       danger.style.top = `${Math.random() * gameHeight}px`;
       gameContainer.appendChild(danger);
     }
-    centerPlayer();
   }
 
   // Update health
