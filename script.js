@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let health = 100;
   let playerX, playerY;
-  let moveSpeed = 30; // Doubled the movement speed again
+  let moveSpeed = 30; // Faster movement speed
 
   // Update container size dynamically based on the window size
   let gameWidth, gameHeight;
@@ -47,14 +47,33 @@ document.addEventListener("DOMContentLoaded", () => {
     centerPlayer();
   }
 
+  // Show Game Over screen
+  function showGameOverScreen() {
+    const gameOverScreen = document.createElement('div');
+    gameOverScreen.id = 'game-over-screen';
+    gameOverScreen.style.position = 'fixed';
+    gameOverScreen.style.top = '0';
+    gameOverScreen.style.left = '0';
+    gameOverScreen.style.width = '100%';
+    gameOverScreen.style.height = '100%';
+    gameOverScreen.style.background = "url('game-over.png') no-repeat center center";
+    gameOverScreen.style.backgroundSize = 'cover';
+    gameOverScreen.style.zIndex = '1000';
+    document.body.appendChild(gameOverScreen);
+
+    setTimeout(() => {
+      gameOverScreen.remove();
+      health = 100; // Reset health
+      generateProceduralWorld(); // Generate a new map
+    }, 3000); // Display Game Over screen for 3 seconds
+  }
+
   // Update health and check for Game Over
   function updateHealth(amount) {
     health = Math.max(0, health + amount);
     healthBarFill.style.width = `${health}%`;
     if (health === 0) {
-      alert('Game Over! Restarting world...');
-      health = 100;
-      generateProceduralWorld();
+      showGameOverScreen();
     }
   }
 
