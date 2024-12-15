@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameOverScreen = document.createElement('div'); // Game Over screen
   let health = 100;
   let playerX, playerY;
-  let moveSpeed = 40; // Increased speed
+  let moveSpeed = 40;
 
   // Initialize Game Over screen
   gameOverScreen.style.position = 'absolute';
@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
     player.style.position = 'absolute';
     player.style.width = '64px';
     player.style.height = '64px';
-    player.style.backgroundImage = "url('astronaut.png')"; // Use character sprite
+    player.style.backgroundImage = "url('new_astronaut.png')"; // Use new astronaut sprite
     player.style.backgroundSize = 'contain';
     player.style.backgroundRepeat = 'no-repeat';
     player.style.left = `${playerX}px`;
