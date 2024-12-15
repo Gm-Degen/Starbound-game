@@ -7,10 +7,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const startButton = document.getElementById('start-button');
   const player = document.getElementById('player');
   const healthBarFill = document.querySelector('.health-bar-fill');
-
+  const gameOverScreen = document.createElement('div'); // Game Over screen
   let health = 100;
   let playerX, playerY;
-  let moveSpeed = 30;
+  let moveSpeed = 40; // Increased speed
+
+  // Initialize Game Over screen
+  gameOverScreen.style.position = 'absolute';
+  gameOverScreen.style.top = 0;
+  gameOverScreen.style.left = 0;
+  gameOverScreen.style.width = '100%';
+  gameOverScreen.style.height = '100%';
+  gameOverScreen.style.background = "url('game-over.png') no-repeat center center";
+  gameOverScreen.style.backgroundSize = 'cover';
+  gameOverScreen.style.display = 'none';
+  gameContainer.appendChild(gameOverScreen);
 
   // Start the game
   startButton.addEventListener('click', () => {
@@ -48,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function generateProceduralWorld() {
     gameContainer.innerHTML = ''; // Clear previous elements
     gameContainer.appendChild(player); // Add the player
+    gameContainer.appendChild(gameOverScreen); // Add Game Over screen
 
     for (let i = 0; i < 50; i++) {
       const star = document.createElement('div');
@@ -80,11 +92,20 @@ document.addEventListener("DOMContentLoaded", () => {
     health = Math.max(0, health + amount);
     healthBarFill.style.width = `${health}%`;
     if (health === 0) {
-      alert('Game Over! Restarting world...');
-      health = 100;
-      healthBarFill.style.width = '100%';
-      generateProceduralWorld();
+      triggerGameOver(); // Show Game Over when health is zero
     }
+  }
+
+  // Trigger Game Over screen
+  function triggerGameOver() {
+    gameOverScreen.style.display = 'block';
+    setTimeout(() => {
+      gameOverScreen.style.display = 'none';
+      health = 100; // Reset health
+      healthBarFill.style.width = '100%';
+      generateProceduralWorld(); // Restart the world
+      centerPlayer(); // Center the player again
+    }, 3000); // Show Game Over for 3 seconds
   }
 
   // Check collision with dangers
